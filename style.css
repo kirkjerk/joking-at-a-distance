@@ -1,0 +1,111 @@
+body {
+    background-color: white;
+    color: black;
+    font-family: sans-serif;
+}
+a {
+    color: black;
+}
+.content {
+    max-width: 400px;
+    margin: auto;
+}
+input {
+    font-size: 30px;
+}
+button {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .content {
+        max-width: 400px;
+        margin: auto;
+    }
+}
+
+#header {
+    text-align: right;
+    min-height: 1.5em;
+}
+
+.playerscards {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 168px;
+}
+
+img {
+    width: 100px;
+    height: 140px;
+}
+.cardframe {
+    padding: 4px;
+    border: 2px dashed #ccc;
+    display: inline-block;
+    margin: 4px;
+}
+.cardframe.clickable {
+    cursor: pointer;
+}
+.cardframe.clicked {
+    /* background-color: blue; */
+    /* border: 2px solid blue; */
+    z-index: 100;
+}
+.cardframe.discard {
+    background-color: red;
+    border: 2px solid red;
+}
+
+.flatten .cardframe {
+    position: absolute;
+}
+.flatten .cardframe.clicked {
+    position: static;
+}
+
+.msg {
+    margin-top: 20px;
+}
+.emptycard {
+    /* border: 2px dashed #ccc; */
+    background-color: #ccc;
+    width: 100px;
+    height: 140px;
+    display: inline-block;
+}
+
+.placeholdercard {
+    border: 2px dashed #ccc;
+    width: 96px;
+    height: 137px;
+    display: inline-block;
+}
+
+.orderwrap {
+    border: 2px dashed #ccc;
+    padding: 4px;
+    display: inline-block;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+.orderwrap img,
+.orderwrap div {
+    margin: 4px;
+}
+
+details {
+    margin-top: 10px;
+}
+summary {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.username {
+    color: #666;
+    font-weight: bold;
+}
