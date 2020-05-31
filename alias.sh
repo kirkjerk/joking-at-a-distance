@@ -1,2 +1,0 @@
-alias joking_rsync='rsync -azP --exclude ".*/" --exclude ".*" --exclude "tmp/" /Users/kisrael/data/dev/2020/joking kirkjerk@alienbill.com:/home/kirkjerk/sites/www.kirk.is/'
-alias joking_rsync_watch='joking_rsync; fswatch -o . | while read f; do joking_rsync; done'
