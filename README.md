@@ -27,7 +27,6 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 
 ##TODO:
 
--   about page/tip jar
 -   better interactions / response for every click, don't wait
 -   maybe: make a "skip flag" to let a player bow out
 
@@ -36,20 +35,18 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 -   time out... or skip
 -   quit should remove person from play - or could be perma skip
 -   Show a win condition
--   Way to get back to rules
 -   consider drag and drop?
 -   has pointer finger for cards even when not clickable
 -   Waiting for list : put bullets between names so it's clear
 -   (No I love all these cards) button looks bad on iOS - takes two lines
 -   Red Card - Waiting for Other Players Doesn't list who hasn't played
 -   score at top?
--   red review: show Someone Else's cptions
+-   red review: show Someone Else's caption at top
 -   maybe review the cards from the last round while waiting for judge to pick
 
 ###from JON:
 
 -   undo card selection?
--   optimize layout for window size
 -   show score?
 -   show if people are waiting on you while you're picking
 -   fillable text box for blank cards?
