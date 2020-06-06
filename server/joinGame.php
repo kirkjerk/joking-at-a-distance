@@ -16,6 +16,9 @@ function addInPlayer($game){
 
     global $username;
     $player = array();
+    $pattern = '/[^0-9a-z ]/gi';
+    preg_replace($pattern, '', $username);
+
     $player["username"] = $username;
 
     foreach($game["players"] as $oldplayer){

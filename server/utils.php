@@ -10,7 +10,7 @@ $DECKSIZE = 350;
 // echo json_encode(startRound(debugLoadGame("3753")));
 
 
-function startRound($game) {
+function startRound($game, $msg) {
     global $DECKSIZE;
     global $TOP_RED_CARD;
     $round = array();
@@ -64,7 +64,9 @@ function startRound($game) {
     if($isRedRound) {
         $round["isred"] = true;
     } 
-
+    if($msg) {
+        $round["msg"] = $msg;
+    }
 
     array_push($game["rounds"],$round);
 

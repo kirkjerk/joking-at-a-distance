@@ -1,6 +1,5 @@
 <?php
 require "utils.php";
-require "gameHelper.php";
 
 $POSTJSON = getJsonPOST();
 $gamename = $POSTJSON['gamename'];
@@ -13,8 +12,6 @@ if(! isAvailableGame($gamename)){
 function startNextRound($game){
     global $username;
 
-    $game["state"] = "NEW_ROUND";
-        
     $game = startRound($game);
 
     return $game;
