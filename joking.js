@@ -24,6 +24,12 @@ function startup() {
 }
 
 function quitGame() {
+    doJsonPost(
+        'server/leaveGame.php',
+        { gamename: joking.gamename, username: joking.username },
+        () => {},
+        defaultAjaxError
+    );
     joking.gamename = null;
     joking.game = null;
     localStorage.removeItem('gamename');
@@ -36,7 +42,7 @@ function renderCurrentGameHeader() {
     buf += joking.username ? ` <span class='username'>${joking.username}</span> ` : '';
     buf += joking.username && !joking.gamename ? ` (<a href='#' onclick='logout(); return false;'>logout</a>) ` : '';
     buf += joking.gamename
-        ? ` | Game ${joking.gamename} (<a href='#' onclick='quitGame(); return false;'>quit game</a>)`
+        ? ` | Game ${joking.gamename} (<a href='#' onclick='quitGame(); return false;'>leave game</a>)`
         : '';
 
     return buf;
@@ -150,6 +156,11 @@ function redrawGame() {
 
     joking.cardClickHandler = null;
 
+    const aRound = game.rounds && game.rounds[game.rounds.length - 1];
+    if (aRound && aRound.msg) {
+        buf += `<div><b>${aRound.msg}</b></div>`;
+    }
+
     switch (game.state) {
         case 'GAME_SIGNUP': {
             buf += `
@@ -168,10 +179,6 @@ function redrawGame() {
             }
             buf += '<h2>Cards in your hand:</h2>';
             buf += renderPlayerDeck();
-            break;
-        }
-        case 'NEW_ROUND': {
-            buf += `NEW ROUND!`;
             break;
         }
         case 'REG_ROUND': {
@@ -649,8 +656,11 @@ function renderScores() {
         scoreForPlayer[round.winner] += round.isred ? 2 : 1;
     });
 
-    const tableRow = (player) =>
-        `<tr><th><span class='username'>${player}</span></th><td>${scoreForPlayer[player]}</td></tr>`;
+    const tableRow = (player) => {
+        return player && player != 'undefined'
+            ? `<tr><th><span class='username'>${player}</span></th><td>${scoreForPlayer[player]}</td></tr>`
+            : '';
+    };
 
     const guts = Object.keys(scoreForPlayer)
         .map((player) => tableRow(player))
@@ -750,6 +760,9 @@ New Orleans' <a href="https://www.saveourbrassfoundation.com/">Save Our Brass Cu
 <p>
 (Mostly I just like the feedback! So you can also just email me at kirkjerk at gmail dot com.)
 </p>
+<h2>Open Source</h2>
+This game is open source - 
+<a href="https://github.com/kirkjerk/joking-at-a-distance">github.com/kirkjerk/joking-at-a-distance</a>
 
 
 

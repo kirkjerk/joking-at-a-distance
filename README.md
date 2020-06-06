@@ -56,3 +56,31 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 -   maybe a counter of how many times you've gone around?
 -   show previous round below winner/deck card
 -   Red panel pick says waiting for other players, but doesn't say who
+
+##Design Notes
+
+Each player's browser has a single page app. Game model is stored as a JSON object on the server
+and updated by a series of PHP endpoints that modify it and return the current model.
+Each client rerenders itself (though just in vanila ECMAscript) according to that model.
+Local Storage is used to record username and current game, and there's a local-state-only
+concept used for some transient settings. This setup lets reloads fully restore the interface.
+
+It's basically a state machine - game state is one of the following:
+
+-   GAME_SIGNUP - waiting for players to join, first player starts
+-   REG_ROUND - normal round, waiting for judge to pick 1st or second panel
+-   REG_PLAYERS_PICK - wait for each non-judge player to pick a 3rd panel
+-   REG_JUDGE_PICK - wait for judge to select round winner
+-   REG_END_ROUND - results displayed, wait for next judge to start
+-   RED_REDRAWS - if computer picked a red card, wait for all players to discard from their hand
+-   RED_ROUND - waiting for non-judge players to pick other 2 cards
+-   RED_JUDGE_PICK - waiting for judge to select round winner
+-   RED_END_ROUND - results displayed, wait for next judge to start
+
+There's admittedly not a lot of security built in to the system, no checking is done that a person
+is who they say they are. But honestly, why are you playing with that kind of person anyway?
+
+Many of the PHP endpoints consist of a single function that takes in the game model,
+manipulates it, and returns it. Most have some commented out code to make it
+relatively easy to do a command line run - putting player and game identifier in
+and calling debugLoadGame() and replaying the game model transformation without saving it.
