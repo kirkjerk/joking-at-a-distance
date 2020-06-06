@@ -1,6 +1,5 @@
 <?php
 require "utils.php";
-require "gameHelper.php";
 
 $POSTJSON = getJsonPOST();
 $gamename = $POSTJSON['gamename'];

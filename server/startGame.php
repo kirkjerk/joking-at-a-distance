@@ -1,6 +1,5 @@
 <?php
 require "utils.php";
-require "gameHelper.php";
 
 $POSTJSON = getJsonPOST();
 $gamename = $POSTJSON['gamename'];
@@ -22,8 +21,6 @@ function startGameIfCreator($game){
     global $username;
 
     if($game["state"] == "GAME_SIGNUP" && $game["creatorname"] == $username) {
-        $game["state"] = "NEW_ROUND";
-        
         $game = startRound($game);
     }
     return $game;
