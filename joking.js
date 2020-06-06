@@ -38,6 +38,7 @@ function renderCurrentGameHeader() {
     buf += joking.gamename
         ? ` | Game ${joking.gamename} (<a href='#' onclick='quitGame(); return false;'>quit game</a>)`
         : '';
+
     return buf;
 }
 
@@ -62,49 +63,7 @@ function showUsernameEntry() {
     window.app.innerHTML = `
         ${msg('Your name:')}
         <input id='username'> <button onclick='setUsername()'>Enter name</button>
-        <div>
-        <p>
-        This is an as yet unauthorized "social distancing" version of 
-        the card game <a href="http://jokinghazardgame.com/">Joking Hazard</a>. 
-        You should buy the original if you can find it! It is a much 
-        better game in person, but Zoom will do for now...
-        </p>
-        <h2>How it Works</h2>
-        <p>Everyone logs in to this site 
-        using their own device (computer, tablet, phone)-
-        and also joins the same video conference call.
-        someone creates a new game and gives the 4 letter code to the other players.
-        </p>
-        <h2>Game Play</h2>
-        <p>
-        Game play is a bit similar to "Apples to Apples" or 
-        "Cards Against Humanity" but making three panel comics.
-        <p>
-        Everyone starts with a hand of seven comic panel cards
-        The person who started the 
-        game will be the first judge. The deck picks the first
-        card, the judge then chooses a card from their to hand 
-        to pair with it as the first or second panel. The other players
-        anonymously pick a card from their hand to be the third 
-        panel. The judge then picks their favorite, and that player 
-        wins a point, and everyone's hand is refreshed with a card from 
-        the deck. (Players always have seven cards in their hand.)
-
-        </p>
-        <p>
-        Sometimes the deck plays a card with a red border - 
-        (red border cards are often hard to follow-up!)
-        This launches a special round where everyone gets to exchange as 
-        many cards from their hand as they want for new cards. Then, everyone but 
-        the judge picks a first and second panel with the deck's card
-        as a closer. The judge picks whose player's combo they like best,
-        and that player gets two points.
-        </p>
-     
-        <p>Play continues until it stops.</p>
-         
-
-        </div>`;
+        ${renderRules()}`;
 }
 
 function setUsername() {
@@ -173,6 +132,8 @@ function redrawGame() {
     window.topBar.innerHTML = renderCurrentGameHeader();
     window.debug.innerHTML = '';
 
+    window.modalArea.innerHTML = joking.localstate.showModal ? renderModal() : '';
+
     if (!(joking.game && joking.gamename)) {
         showGameMakeOrJoin();
         return;
@@ -191,7 +152,7 @@ function redrawGame() {
 
     switch (game.state) {
         case 'GAME_SIGNUP': {
-            buf = `
+            buf += `
                 <h2>Game Code: ${game.gamename}</h2>
                 ${msg('Players Currently in Game:')}
                 ${renderCurrentPlayerList(game)}`;
@@ -210,7 +171,7 @@ function redrawGame() {
             break;
         }
         case 'NEW_ROUND': {
-            buf = `NEW ROUND!`;
+            buf += `NEW ROUND!`;
             break;
         }
         case 'REG_ROUND': {
@@ -713,4 +674,84 @@ function startNextRound() {
     if (!joking.gamename || !joking.username) return;
 
     doJsonPost(`server/startNextRound.php`, { gamename: joking.gamename }, () => {}, defaultAjaxError);
+}
+
+function showRulesAndTipJar() {
+    joking.localstate.showModal = true;
+    redrawGame();
+}
+function hideRulesAndTipJar() {
+    joking.localstate.showModal = false;
+    redrawGame();
+}
+
+function renderModal() {
+    return `
+    <div id="myModal" class="modal-backdrop"  onclick='hideRulesAndTipJar();'>
+        <div class="modal-content" onclick="event.stopPropagation();">
+            <span class="close" onclick='hideRulesAndTipJar();'>&times;</span>
+            ${renderRules()}
+        </div>
+    </div>
+    `;
+}
+
+function renderRules() {
+    return `<div>
+<p>
+This is an as yet unauthorized "social distancing" version of 
+the card game <a href="http://jokinghazardgame.com/">Joking Hazard</a>. 
+You should buy the original if you can find it! It is a much 
+better game in person, but Zoom will do for now...
+</p>
+<h2>How it Works</h2>
+<p>Everyone logs in to this site 
+using their own device (computer, tablet, phone)-
+and also joins the same video conference call.
+someone creates a new game and gives the 4 letter code to the other players.
+</p>
+<h2>Game Play</h2>
+<p>
+Game play is a bit similar to "Apples to Apples" or 
+"Cards Against Humanity" but making three panel comics.
+<p>
+Everyone starts with a hand of seven comic panel cards
+The person who started the 
+game will be the first judge. The deck picks the first
+card, the judge then chooses a card from their to hand 
+to pair with it as the first or second panel. The other players
+anonymously pick a card from their hand to be the third 
+panel. The judge then picks their favorite, and that player 
+wins a point, and everyone's hand is refreshed with a card from 
+the deck. (Players always have seven cards in their hand.)
+
+</p>
+<p>
+Sometimes the deck plays a card with a red border - 
+(red border cards are often hard to follow-up!)
+This launches a special round where everyone gets to exchange as 
+many cards from their hand as they want for new cards. Then, everyone but 
+the judge picks a first and second panel with the deck's card
+as a closer. The judge picks whose player's combo they like best,
+and that player gets two points.
+</p>
+
+<p>Play continues until it stops. (Some prefer "first to three points wins  ")</p>
+ 
+<h2>Tip Jar</h2>
+<p>
+If you dig this game, please consider hunting down a copy of the original!
+</p>
+<p>
+Also you can toss into the tipjar: <a href='https://venmo.com/code?user_id=2272753205903360732'>venmo (@Kirk-Israel-00)</a> or 
+<a href="https://www.paypal.me/kirkjerk">paypal (@kirkjerk)</a>. Profits will go to 
+New Orleans' <a href="https://www.saveourbrassfoundation.com/">Save Our Brass Culture Foundation</a>.
+</p>
+<p>
+(Mostly I just like the feedback! So you can also just email me at kirkjerk at gmail dot com.)
+</p>
+
+
+
+</div>`;
 }
