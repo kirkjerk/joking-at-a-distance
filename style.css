@@ -7,7 +7,7 @@ a {
     color: black;
 }
 .content {
-    max-width: 400px;
+    max-width: 560px;
     margin: auto;
 }
 input {
@@ -38,8 +38,8 @@ button {
 }
 
 img {
-    width: 100px;
-    height: 140px;
+    width: 158px;
+    height: 222px;
 }
 .cardframe {
     padding: 4px;
@@ -73,8 +73,8 @@ img {
 .emptycard {
     /* border: 2px dashed #ccc; */
     background-color: #ccc;
-    width: 100px;
-    height: 140px;
+    width: 158px;
+    height: 222px;
     display: inline-block;
 }
 
@@ -106,6 +106,6 @@ summary {
 }
 
 .username {
-    color: #666;
+    color: #ff6600;
     font-weight: bold;
 }

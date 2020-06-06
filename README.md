@@ -39,8 +39,7 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 -   Way to get back to rules
 -   consider drag and drop?
 -   has pointer finger for cards even when not clickable
--   starting zoom level
--   Waiting for : put bullets between names so it's clear
+-   Waiting for list : put bullets between names so it's clear
 -   (No I love all these cards) button looks bad on iOS - takes two lines
 -   Red Card - Waiting for Other Players Doesn't list who hasn't played
 -   score at top?
