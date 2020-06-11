@@ -43,6 +43,9 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 -   score at top?
 -   red review: show Someone Else's caption at top
 -   maybe review the cards from the last round while waiting for judge to pick
+-   audience likes
+-   send game nunmber as link embdedded
+
 
 ###from JON:
 
