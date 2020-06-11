@@ -45,6 +45,7 @@ alias joking_rsync_watch='cd LOCALPATH/joking-at-a-distance; joking_rsync; fswat
 -   maybe review the cards from the last round while waiting for judge to pick
 -   audience likes
 -   send game nunmber as link embdedded
+-   blank cards have a blank so judge says what it is???
 
 
 ###from JON:
