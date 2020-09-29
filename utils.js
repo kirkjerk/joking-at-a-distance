@@ -1,3 +1,10 @@
+/**
+See https://kirkdev.blogspot.com/2020/05/basic-get-and-post-with-fetch.html
+for a better version of these, along with the PHP it needs to interact with them....
+
+**/
+
+
 function doJsonGet(url, fn, err) {
     fetch(url)
         .then((data) => {
