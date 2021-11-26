@@ -6,10 +6,6 @@
     $POSTJSON = getJsonPOST();
     $who = $POSTJSON['creatorname'];
 
-    $pattern = '/[^0-9a-z ]/gi';
-    preg_replace($pattern, '', $username);
-
-
     $numplaces = 4;
 
     do {

@@ -10,7 +10,7 @@ $DECKSIZE = 350;
 // echo json_encode(startRound(debugLoadGame("3753")));
 
 
-function startRound($game, $msg) {
+function startRound($game, $msg="") {
     global $DECKSIZE;
     global $TOP_RED_CARD;
     $round = array();
@@ -64,7 +64,7 @@ function startRound($game, $msg) {
     if($isRedRound) {
         $round["isred"] = true;
     } 
-    if($msg) {
+    if($msg && $msg != "") {
         $round["msg"] = $msg;
     }
 
@@ -127,7 +127,7 @@ function updateGame($gamename, $function){
 
         $oldguts = json_decode($oldgutsraw,true); //get current state
 
-        $version = $oldguts["version"] ? $oldguts["version"] : 1;
+        $version = isset($oldguts["version"]) ? $oldguts["version"] : 1;
         $version++;
         $oldguts["version"] = $version;
         $newguts = json_encode(call_user_func($function,$oldguts)); //update state
@@ -159,6 +159,14 @@ function shuffle_assoc_array($orig) {
 	    $shuffled[$key] = $orig[$key];
     }
     return $shuffled;
+}
+
+
+// cheap and cheerful log function added during work in 2021
+function filelog($msg){
+    $current = file_get_contents("log.txt");
+    $current .= "$msg\n";
+    $current = file_put_contents("log.txt",$current);
 }
 
 ?>

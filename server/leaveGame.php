@@ -24,10 +24,9 @@ if(! isAvailableGame($gamename)){
 function removePlayerAndUpdateRound($game){
     global $username;
     $game["players"] = arrayMinusUsernameMatch($game["players"],$username);
-    
     if($game["state"] == "GAME_SIGNUP"){
         if($game["creatorname"] == $username) {
-            if(count($game["players"] > 0)){
+            if(count($game["players"]) > 0){
                 $game["creatorname"] = $game["players"][0]["username"];
             } else {
                 $game["creatorname"] = "BAILED! NO GAME";
